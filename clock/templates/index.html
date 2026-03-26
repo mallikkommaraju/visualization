@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Clock</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="page">
+    <h1 class="title">Clock</h1>
+
+    <div class="clock-container">
+
+      <!-- Analog Clock -->
+      <div class="panel analog-panel">
+        <svg id="analog-clock" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <!-- Outer ring -->
+          <circle cx="150" cy="150" r="145" class="face-ring" />
+          <!-- Clock face -->
+          <circle cx="150" cy="150" r="138" class="face" />
+          <!-- Tick marks rendered by JS -->
+          <g id="ticks"></g>
+          <!-- Hands -->
+          <line id="hour-hand"   x1="150" y1="150" x2="150" y2="80"  class="hand hour" stroke-linecap="round" />
+          <line id="minute-hand" x1="150" y1="150" x2="150" y2="50"  class="hand minute" stroke-linecap="round" />
+          <line id="second-hand" x1="150" y1="150" x2="150" y2="38"  class="hand second" stroke-linecap="round" />
+          <!-- Counter-tail on second hand -->
+          <line id="second-tail" x1="150" y1="150" x2="150" y2="168" class="hand second-tail" stroke-linecap="round" />
+          <!-- Center dot -->
+          <circle cx="150" cy="150" r="6" class="center-dot" />
+          <circle cx="150" cy="150" r="3" class="center-inner" />
+        </svg>
+      </div>
+
+      <!-- Digital Clock -->
+      <div class="panel digital-panel">
+        <div class="digital-time">
+          <span id="dig-hours">00</span><span class="colon">:</span><span id="dig-minutes">00</span><span class="colon">:</span><span id="dig-seconds" class="seconds-digit">00</span>
+        </div>
+        <div class="ampm" id="dig-ampm">AM</div>
+        <div class="date-line" id="date-line">Loading…</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="/static/clock.js"></script>
+</body>
+</html>
