@@ -1,0 +1,196 @@
+/* ── Custom Properties ─────────────────────────────────────── */
+:root {
+  --bg:          #0d0d1a;
+  --face:        #1a1a2e;
+  --face-ring:   #2a2a4a;
+  --text:        #e0e0ff;
+  --muted:       rgba(224, 224, 255, 0.45);
+  --accent:      #7b68ee;   /* slate blue – hour/minute hands */
+  --second:      #ff4757;   /* red – second hand + seconds digit */
+  --glow:        rgba(123, 104, 238, 0.4);
+  --glow-second: rgba(255, 71, 87, 0.5);
+}
+
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Base ──────────────────────────────────────────────────── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Subtle radial gradient behind everything */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%,
+    rgba(123, 104, 238, 0.08) 0%,
+    transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Page wrapper ──────────────────────────────────────────── */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 2rem 1rem;
+  width: 100%;
+}
+
+/* ── Title ─────────────────────────────────────────────────── */
+.title {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Two-panel layout ──────────────────────────────────────── */
+.clock-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  flex-wrap: wrap;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Analog clock SVG ──────────────────────────────────────── */
+#analog-clock {
+  width: clamp(220px, 38vw, 300px);
+  height: clamp(220px, 38vw, 300px);
+  filter: drop-shadow(0 0 24px var(--glow));
+}
+
+/* SVG elements styled via class (SVG presentation attributes
+   can be overridden by CSS) */
+.face-ring {
+  fill: var(--face-ring);
+}
+
+.face {
+  fill: var(--face);
+}
+
+.tick-major {
+  stroke: var(--text);
+  stroke-width: 2.5;
+  opacity: 0.8;
+}
+
+.tick-minor {
+  stroke: var(--muted);
+  stroke-width: 1;
+  opacity: 0.5;
+}
+
+.hand {
+  stroke-width: 4;
+}
+
+.hand.hour {
+  stroke: var(--text);
+  stroke-width: 5;
+  opacity: 0.95;
+}
+
+.hand.minute {
+  stroke: var(--accent);
+  stroke-width: 3.5;
+}
+
+.hand.second {
+  stroke: var(--second);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 4px var(--glow-second));
+}
+
+.hand.second-tail {
+  stroke: var(--second);
+  stroke-width: 2;
+  opacity: 0.6;
+  filter: drop-shadow(0 0 4px var(--glow-second));
+}
+
+.center-dot {
+  fill: var(--accent);
+}
+
+.center-inner {
+  fill: var(--second);
+}
+
+/* ── Digital clock ─────────────────────────────────────────── */
+.digital-panel {
+  gap: 0.6rem;
+  min-width: 260px;
+}
+
+.digital-time {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  font-size: clamp(3.5rem, 9vw, 5.5rem);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-shadow: 0 0 24px var(--glow);
+  color: var(--text);
+}
+
+.colon {
+  color: var(--accent);
+  opacity: 0.7;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0.2; }
+}
+
+.seconds-digit {
+  color: var(--second);
+  text-shadow: 0 0 20px var(--glow-second);
+}
+
+.ampm {
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.date-line {
+  font-size: clamp(0.75rem, 2vw, 0.95rem);
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-top: 0.2rem;
+}
+
+/* ── Responsive stacking ───────────────────────────────────── */
+@media (max-width: 540px) {
+  .clock-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  #analog-clock {
+    width: min(80vw, 260px);
+    height: min(80vw, 260px);
+  }
+}
